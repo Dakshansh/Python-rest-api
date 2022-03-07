@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: Simple rest api using OpenAPI,Connexion,marshmallow,sqlalchemy,sqlite.
+  description: API built with OpenAPI,Connexion,marshmallow,sqlalchemy,sqlite.
+  version: "1.0.5"
+servers:
+  - url: http://localhost:5000
+    description: API shown here
+paths:
+  /students:
+    get:
+      operationId: student.read_all
+      tags:
+        - Student Details
+      summary: Returns a list of items.
+      description: Returns a list of items.
+      responses:
+        "200": # status code
+          description: Return the entire list of items.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Details"
+    post:
+      operationId: student.create
+      tags:
+        - Student Details
+      summary: Create a new Item
+      description: Create a new Item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Details"
+      responses:
+        "201":
+          description: Item Created successfully
+  /students/{sid}:
+    get:
+      operationId: student.read_one
+      tags:
+        - Student Details
+      summary: Return an Item with given ID
+      description: Return an Item with given ID
+      parameters:
+        - name: sid
+          in: path
+          description: Item ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200": # status code
+          description: Return an Item with given ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Details"
+    delete:
+      operationId: student.delete
+      tags:
+        - Student Details
+      summary: Delete an Item with given ID
+      description: Delete an Item with given ID
+      parameters:
+        - name: sid
+          in: path
+          description: Item ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200": # status code
+          description: Deleted an Item with given ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Details"
+    put:
+      operationId: student.update
+      tags:
+        - Student Details
+      summary: Update an Item with given ID
+      description: Update an Item with given ID
+      parameters:
+        - name: sid
+          in: path
+          description: Item ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Details"
+      responses:
+        "200": # status code
+          description: Updated an Item with given ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Details"
+
+components:
+  schemas:
+    Details:
+      type: object
+      properties:
+        sid:
+         type: integer
+        enrolled:
+         type: boolean
+        name:
+         type: string
+        classs:
+         type: string
+        age:
+         type: integer
+        des:
+         type: string
+        fd:
+         type: string
+         format: date-time
